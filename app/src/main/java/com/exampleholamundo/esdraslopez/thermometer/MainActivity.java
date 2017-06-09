@@ -1,8 +1,11 @@
 package com.exampleholamundo.esdraslopez.thermometer;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import java.text.DecimalFormat;
@@ -116,8 +119,27 @@ public class MainActivity extends AppCompatActivity {
                 String spn2=sp2.getSelectedItem().toString();
        //         tv.setText(spn1);
 
+
+                Context context = getApplicationContext();
+                CharSequence text = "NO SE PUEDE COVNERTIR";
+                int duration = Toast.LENGTH_SHORT;
+
+                LayoutInflater inflater = getLayoutInflater();
+                View layout = inflater.inflate(R.layout.custom_dialog,
+                        (ViewGroup) findViewById(R.id.toast_layout_root));
+
+                TextView textToast = (TextView) layout.findViewById(R.id.text_toast);
+
+
+                Toast toast = new Toast(context);
+                toast.setDuration(duration);
+                toast.setView(layout);
+                toast.show();
+try{
+
                 if (spn1.equals(spn2)){
-                    Toast.makeText(MainActivity.this,"No se puede convertir", Toast.LENGTH_SHORT).show();
+                    textToast.setText(text);
+                    //Toast.makeText(MainActivity.this,"No se puede convertir", Toast.LENGTH_SHORT).show();
                     return;
                 }
                      if(spn1.equals("CELSIUS") && spn2.equals("CELSIUS")){
@@ -139,7 +161,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                      else if(spn1.equals("FARENHEIT") && spn2.equals("FARENHEIT")){
-
+                         textToast.setText(text);
                      }else if(spn1.equals("FARENHEIT") && spn2.equals("CELSIUS")){
                     double valor=  Double.parseDouble(editText.getText().toString());
                     double form=(5*(valor-32))/9;
@@ -156,7 +178,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                      else if(spn1.equals("KELVIN") && spn2.equals("KELVIN")){
-
+                         textToast.setText(text);
                      }else if(spn1.equals("KELVIN") && spn2.equals("CELSIUS")){
                          double valor=  Double.parseDouble(editText.getText().toString());
                          double form=valor-273.15;
@@ -173,7 +195,7 @@ public class MainActivity extends AppCompatActivity {
 
 
                      else if(spn1.equals("RANKINE") && spn2.equals("RANKINE")){
-
+                         textToast.setText(text);
                      }else if(spn1.equals("RANKINE") && spn2.equals("CELSIUS")){
                          double valor=  Double.parseDouble(editText.getText().toString());
                              double form=(5*(valor-491.67)/9);
@@ -184,9 +206,12 @@ public class MainActivity extends AppCompatActivity {
                          tv.setText(String.valueOf(objFormato.format(form)));
                      }else if(spn1.equals("RANKINE") && spn2.equals("KELVIN")) {
                          double valor = Double.parseDouble(editText.getText().toString());
-                         double form = ((5*(valor-491.67))/9)+273.15;
+                         double form = ((5 * (valor - 491.67)) / 9) + 273.15;
                          tv.setText(String.valueOf(objFormato.format(form)));
                      }
+                }catch (Exception e){
+                    
+                }
             }
         });
 
