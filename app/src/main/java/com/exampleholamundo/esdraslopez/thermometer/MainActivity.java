@@ -3,6 +3,7 @@ package com.exampleholamundo.esdraslopez.thermometer;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,9 +46,13 @@ public class MainActivity extends AppCompatActivity {
     String[] items2;
     private boolean isFirstTime = true;
 
-    @Optional @OnClick(R.id.button) void buttonClear() {
+    public void clean(){
         tv.setText("");
         editText.setText("");
+    }
+
+    @Optional @OnClick(R.id.button) void buttonClear() {
+        clean();
     }
 
     @Override
@@ -65,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
         listsp1.add("KELVIN");
         listsp1.add("RANKINE");
 
-        ArrayAdapter arrayAdapter= new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line,listsp1);
+        final ArrayAdapter arrayAdapter= new ArrayAdapter(this, android.R.layout.simple_dropdown_item_1line,listsp1);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sp1.setAdapter(arrayAdapter);
 
@@ -120,9 +125,18 @@ public class MainActivity extends AppCompatActivity {
        //         tv.setText(spn1);
 
 
+
+
+
+
+
+
+
                 Context context = getApplicationContext();
-                CharSequence text = "NO SE PUEDE COVNERTIR";
+                CharSequence text = "NO SE PUEDE CONVERTIR";
                 int duration = Toast.LENGTH_SHORT;
+
+
 
                 LayoutInflater inflater = getLayoutInflater();
                 View layout = inflater.inflate(R.layout.custom_dialog,
@@ -133,18 +147,30 @@ public class MainActivity extends AppCompatActivity {
 
                 Toast toast = new Toast(context);
                 toast.setDuration(duration);
-                toast.setView(layout);
-                toast.show();
+
+                toast.setGravity(Gravity.CENTER_VERTICAL, 0, 200);
+
+                //toast.setView(layout);
+                //toast.show();
+
+
+
+
+
+
+
+
 try{
 
                 if (spn1.equals(spn2)){
+                    tv.setText("");
                     textToast.setText(text);
+                    toast.setView(layout);
+                    toast.show();
                     //Toast.makeText(MainActivity.this,"No se puede convertir", Toast.LENGTH_SHORT).show();
                     return;
                 }
-                     if(spn1.equals("CELSIUS") && spn2.equals("CELSIUS")){
-
-                     }else if(spn1.equals("CELSIUS") && spn2.equals("FARENHEIT")){
+                     if(spn1.equals("CELSIUS") && spn2.equals("FARENHEIT")){
                          double valor=  Double.parseDouble(editText.getText().toString());
                          double form=(9*valor/5)+32;
                          //objFormato.format(form);
@@ -160,9 +186,7 @@ try{
                      }
 
 
-                     else if(spn1.equals("FARENHEIT") && spn2.equals("FARENHEIT")){
-                         textToast.setText(text);
-                     }else if(spn1.equals("FARENHEIT") && spn2.equals("CELSIUS")){
+                      if(spn1.equals("FARENHEIT") && spn2.equals("CELSIUS")){
                     double valor=  Double.parseDouble(editText.getText().toString());
                     double form=(5*(valor-32))/9;
                          tv.setText(String.valueOf(objFormato.format(form)));
@@ -177,9 +201,7 @@ try{
                 }
 
 
-                     else if(spn1.equals("KELVIN") && spn2.equals("KELVIN")){
-                         textToast.setText(text);
-                     }else if(spn1.equals("KELVIN") && spn2.equals("CELSIUS")){
+                     if(spn1.equals("KELVIN") && spn2.equals("CELSIUS")){
                          double valor=  Double.parseDouble(editText.getText().toString());
                          double form=valor-273.15;
                          tv.setText(String.valueOf(objFormato.format(form)));
@@ -194,9 +216,7 @@ try{
                      }
 
 
-                     else if(spn1.equals("RANKINE") && spn2.equals("RANKINE")){
-                         textToast.setText(text);
-                     }else if(spn1.equals("RANKINE") && spn2.equals("CELSIUS")){
+                     else if(spn1.equals("RANKINE") && spn2.equals("CELSIUS")){
                          double valor=  Double.parseDouble(editText.getText().toString());
                              double form=(5*(valor-491.67)/9);
                          tv.setText(String.valueOf(objFormato.format(form)));

@@ -35,9 +35,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:ems="0"
-                android:hint="Ingrese Temperatura"
+                android:hint="@string/hintTemp"
                 android:inputType="number"
-                android:textAlignment="viewStart" />
+                android:textAlignment="center"
+                />
 
             <Spinner
                 android:id="@+id/spinners"
